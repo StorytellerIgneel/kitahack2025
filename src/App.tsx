@@ -1,5 +1,7 @@
 import React from "react";
 import "./App.css";
+import Footer from "./components/Footer";
+
 
 const App: React.FC = () => {
   return (
@@ -29,6 +31,7 @@ const App: React.FC = () => {
         <button className="subscribe-btn" id="subscribe">Subscribe to Us</button>
         <div className="chatbot">💬</div>
       </div>
+      <Footer />
     </div>
   );
 };

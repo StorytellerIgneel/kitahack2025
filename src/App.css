@@ -6,8 +6,7 @@ body, html {
   color: white;
   text-align: center;
   width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+  height: 100%;
   display: flex;
   justify-content: center; /* Ensures the body content is centered */
   align-items: center; /* Centers everything vertically */
@@ -62,7 +61,8 @@ body, html {
   gap: 15px;
   text-align: center; /* Ensures the text inside is centered */
   margin: 0 auto; /* Centers horizontally */
-  padding: 20px;
+  padding: 250px 20px 20px;
+  flex: 1;
 }
 
 /* Content Box Styles */
@@ -120,4 +120,50 @@ body, html {
 
 .chatbot:hover {
   background: #0056b3;
+}
+
+.contact-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+h1 {
+  color: #333;
+}
+p {
+  font-size: 18px;
+  color: #666;
+}
+
+.footer {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  text-align: center;
+  padding: 20px;
+  width: 100vw;
+  bottom: 0;
+  left: 0;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-content p {
+  margin: 5px 0;
+}
+
+.footer-bottom {
+  margin-top: 10px;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.footer p:hover {
+  color: #ffd700;
+  transition: color 0.3s ease;
 }
