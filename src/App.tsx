@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import Map from "./components/Map";
 import Footer from "./components/Footer";
 
 
@@ -28,6 +29,8 @@ const App: React.FC = () => {
           <p>💰 Estimated economic loss due to climate disasters: <strong>$200 billion/year</strong></p>
           <p>🌊 Sea levels have risen by <strong>8 inches</strong> since 1880.</p>
         </div>
+        <h1>Flood Area</h1>
+        <Map />
         <button className="subscribe-btn" id="subscribe">Subscribe to Us</button>
         <div className="chatbot">💬</div>
       </div>
