@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="footer">
+    <footer className="footer" id="contact">
       <div className="footer-content">
         <p>🌍 Climate Action Initiative</p>
         <p>📍 Kuala Lumpur, Malaysia</p>
