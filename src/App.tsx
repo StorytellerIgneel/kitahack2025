@@ -1,35 +1,128 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import "./App.css";
+import Map from "./components/Map";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import { db, collection, addDoc } from "./firebaseConfig";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("");
+
+  // Handle subscription
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) {
+      setStatus("❌ Please enter a valid email.");
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, "subscribers"), { email });
+      setStatus("✅ Subscribed successfully!");
+      setEmail(""); // Clear input field after success
+    } catch (error) {
+      console.error("Error subscribing:", error);
+      setStatus("❌ Subscription failed. Try again.");
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div>
+      <Header />
+      <div className="background"></div>
+      <div className="flood-image"></div>
+      <div className="content-container">
+        <div className="bg-white/80 w-full rounded-xl text-3xl p-3.5 backdrop-blur-xs">
+          <p className="font-bold">DID YOU KNOW?</p>
+          <p className="mt-7">
+            Climate change causes&nbsp;
+            <span className="font-bold text-[#ffc02d] bg-[#025E86] ">
+              &nbsp;flooding&nbsp;
+            </span>
+            .
+          </p>
+          <p>
+            Malaysians have lost&nbsp;
+            <span className="font-bold text-[#ffc02d] bg-[#025E86]">
+              &nbsp;RM933.4 million&nbsp;
+            </span>{" "}
+            to floods in 2024. <span className="italic">(DOSM, 2025)</span>
+          </p>
+        </div>
+        <div className="content-box" id="about">
+          <h2>Introduction</h2>
+          <p>
+            Climate change is a critical global issue that affects all aspects
+            of life. Rising temperatures and unpredictable weather patterns
+            threaten ecosystems, communities, and economies worldwide.
+          </p>
+        </div>
+        <div
+          className="bg-white/80 w-full rounded-xl text-3xl p-3.5 backdrop-blur-xs"
+          id="facts"
+        >
+          <h2 className="font-bold">Climate Facts</h2>
+          <div className="flex flex-row gap-x-7 px-10 mt-4">
+            <div className="content-box h-60 shadow-2xl">
+              <p className="flex flex-col gap-y-3">
+                <span className="text-6xl">🌡</span>Annual global temperature increase: <strong>1.1°C</strong>
+              </p>
+            </div>
+            <div className="content-box h-60 shadow-2xl">
+              <p className="flex flex-col gap-y-3">
+                <span className="text-6xl">💰</span>Estimated economic loss due to climate disasters:{" "}
+                <strong>$200 billion/year</strong>
+              </p>
+            </div>
+            <div className="content-box h-60 shadow-2xl">
+              <p className="flex flex-col gap-y-3">
+                <span className="text-6xl">🌊</span>Sea levels have risen by <strong>8 inches</strong> since
+                1880.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="content-box">
+          <h2>Flood Area</h2>
+          <Map />
+        </div>
+        <div className="bg-white/80 w-full rounded-xl text-3xl p-3.5 backdrop-blur-xs">
+          <h2 className="font-bold mb-4">Footage of recent flood</h2>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            controls
+            className="background-video"
+          >
+            <source src="/flood-video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div className="mt-10">
+          <p className="font-semibold text-left">Want to get the latest update about climate action?</p>
+          <form onSubmit={handleSubscribe} className="subscribe-form">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="email-input"
+            />
+            <button type="submit" className="subscribe-btn">
+              Subscribe to Us
+            </button>
+          </form>
+        </div>
+        {status && <p className="status-message">{status}</p>}
+        <div className="chatbot">💬</div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <Footer />
+    </div>
+  );
+};
 
-export default App
+export default App;
