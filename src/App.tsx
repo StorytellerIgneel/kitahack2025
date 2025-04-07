@@ -4,6 +4,7 @@ import Map from "./components/Map";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { db, collection, addDoc } from "./firebaseConfig";
+import Gemini from "./components/Gemini";
 
 const App: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -118,8 +119,9 @@ const App: React.FC = () => {
           </form>
         </div>
         {status && <p className="status-message">{status}</p>}
-        <div className="chatbot">💬</div>
+        {/* <div className="chatbot">💬</div> */}
       </div>
+      <Gemini />
       <Footer />
     </div>
   );
