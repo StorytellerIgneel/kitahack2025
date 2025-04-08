@@ -12,6 +12,7 @@
   "dependencies": {
     "@chatscope/chat-ui-kit-react": "^2.0.3",
     "@chatscope/chat-ui-kit-styles": "^1.4.0",
+    "@emailjs/browser": "^4.4.1",
     "@google/generative-ai": "^0.24.0",
     "@tailwindcss/vite": "^4.1.0",
     "@types/nodemailer": "^6.4.17",

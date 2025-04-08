@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./App.css";
 import Map from "./components/Map";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { db, collection, addDoc } from "./firebaseConfig";
 import Gemini from "./components/Gemini";
+import emailjs from '@emailjs/browser';
 
 const App: React.FC = () => {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("");
 
+  const formRef = useRef<HTMLFormElement>(null); // add this line
   // Handle subscription
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,6 +29,27 @@ const App: React.FC = () => {
       setStatus("❌ Subscription failed. Try again.");
     }
   };
+
+  const sendEmail = async (e:any) => {
+    e.preventDefault();
+
+    if (!formRef.current) return; // ✅ safely chec
+    console.log(email);
+
+    let formData = new FormData();
+    formData.append('name', "filler");
+    formData.append('email', email);
+
+    emailjs.sendForm('service_kkdhmlb', 'template_yqxtmac', formRef.current, {publicKey: '3n8xXSvm4KPDChxv-',})
+    .then(
+      () => {
+        console.log('SUCCESS!');
+      },
+      (error) => {
+        console.log('FAILED...', error.text);
+      },
+    );
+  }
 
   return (
     <div>
@@ -113,9 +136,14 @@ const App: React.FC = () => {
               required
               className="email-input"
             />
-            <button type="submit" className="subscribe-btn">
+            <button type="submit" className="subscribe-btn" onClick={ (e) =>sendEmail(e)}>
               Subscribe to Us
             </button>
+          </form>
+           {/* ✅ Hidden form for EmailJS */}
+          <form ref={formRef} style={{ display: "none" }}>
+            <input type="hidden" name="email" value={email} />
+            <input type="hidden" name="name" value="filler" />
           </form>
         </div>
         {status && <p className="status-message">{status}</p>}
