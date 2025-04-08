@@ -40,7 +40,11 @@ const App: React.FC = () => {
     formData.append('name', "filler");
     formData.append('email', email);
 
-    emailjs.sendForm('service_kkdhmlb', 'template_yqxtmac', formRef.current, {publicKey: '3n8xXSvm4KPDChxv-',})
+    emailjs.sendForm(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID!,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID!, 
+      formRef.current, 
+      {publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY!})
     .then(
       () => {
         console.log('SUCCESS!');
